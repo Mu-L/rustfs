@@ -78,10 +78,8 @@ pub mod bucket {
 
         pub mod recovery_disposition {
             pub use crate::bucket::lifecycle::recovery_disposition::{
-                CreatedIlmRecoveryDisposition, IlmRecoveryDisposition, IlmRecoveryDispositionAction, IlmRecoveryDispositionError,
-                IlmRecoveryDispositionIdentity, IlmRecoveryDispositionOwnerLease, IlmRecoveryDispositionReasonCode,
-                IlmRecoveryDispositionState, ObservedIlmRecoveryDisposition, create_recovery_disposition_if_absent,
-                load_recovery_disposition, recovery_disposition_id, save_recovery_disposition_if_current,
+                IlmRecoveryDispositionExecutionOutcome, IlmRecoveryDispositionReasonCode, IlmRecoveryDispositionState,
+                dry_run_recovery_disposition, execute_recovery_disposition,
             };
         }
 
@@ -95,8 +93,9 @@ pub mod bucket {
         pub mod transition_transaction {
             pub use crate::bucket::lifecycle::transition_transaction::{
                 TransitionOperatorDeleteResult, TransitionOperatorError, TransitionOperatorProbe, TransitionOperatorStatus,
-                delete_transition_candidate_for_operator, finalize_missing_transition_transaction_for_operator,
-                inspect_transition_transaction_for_operator,
+                TransitionRecoveryRetryResult, TransitionRecoveryRetryStatus, delete_transition_candidate_for_operator,
+                finalize_missing_transition_transaction_for_operator, inspect_transition_recovery_retry_for_operator,
+                inspect_transition_transaction_for_operator, retry_transition_recovery_for_operator,
             };
             #[cfg(feature = "test-util")]
             pub use crate::bucket::lifecycle::transition_transaction::{

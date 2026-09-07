@@ -236,12 +236,18 @@ pub(crate) mod lifecycle {
     pub(crate) use super::ecstore_bucket::lifecycle::recovery_control::{
         IlmRecoveryClassification, IlmRecoveryControlView, IlmRecoveryProtocol, inspect_recovery_control, list_recovery_controls,
     };
+    pub(crate) use super::ecstore_bucket::lifecycle::recovery_disposition::{
+        IlmRecoveryDispositionExecutionOutcome, IlmRecoveryDispositionReasonCode, IlmRecoveryDispositionState,
+        dry_run_recovery_disposition, execute_recovery_disposition,
+    };
     pub(crate) use super::ecstore_bucket::lifecycle::recovery_export::{
         IlmRecoveryExportObservation, create_recovery_export, inspect_recovery_export_observation, load_recovery_export,
     };
     pub(crate) use super::ecstore_bucket::lifecycle::transition_transaction::{
-        TransitionOperatorDeleteResult, TransitionOperatorError, delete_transition_candidate_for_operator,
-        finalize_missing_transition_transaction_for_operator, inspect_transition_transaction_for_operator,
+        TransitionOperatorDeleteResult, TransitionOperatorError, TransitionRecoveryRetryResult, TransitionRecoveryRetryStatus,
+        delete_transition_candidate_for_operator, finalize_missing_transition_transaction_for_operator,
+        inspect_transition_recovery_retry_for_operator, inspect_transition_transaction_for_operator,
+        retry_transition_recovery_for_operator,
     };
 
     pub(crate) async fn enqueue_transition_for_existing_objects_scoped(
